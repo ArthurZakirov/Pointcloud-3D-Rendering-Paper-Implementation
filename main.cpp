@@ -17,20 +17,20 @@ int main()
 	Vector3d center(0.5, 0.5, 0.5);
 	float radius = 0.4;
 	float small_radius = 0.1;
-	ImplicitSurface* surface;
+	ImplicitSurface *surface;
 	// surface = new Sphere(center, radius);
 	// surface = new Torus(center, radius, small_radius);
 	// surface = new Hoppe(filenameIn);
 	surface = new RBF(filenameIn);
 
 	// fill volume with signed distance values
-	unsigned int resolution = 20; 
+	unsigned int resolution = 20;
 	double extra_space = 0.1;
 	Vector3d min_point(0, 0, 0);
 	Vector3d max_point(1, 1, 1);
 	min_point = (min_point.array() - extra_space).matrix();
 	max_point = (max_point.array() + extra_space).matrix();
-	
+
 	Volume vol(min_point, max_point, resolution, resolution, resolution, 1);
 
 	for (unsigned int x = 0; x < vol.getDimX(); x++)
@@ -41,7 +41,7 @@ int main()
 			{
 				Vector3d p = vol.pos(x, y, z);
 				double val = surface->Eval(p);
-				vol.set(x,y,z, val);
+				vol.set(x, y, z, val);
 			}
 		}
 	}
